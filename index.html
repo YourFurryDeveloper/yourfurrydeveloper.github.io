@@ -11,8 +11,8 @@
             <div id="navbar">
                 <p class="siteName">Mr_McTech</p>
                 <div id="navBtns">
-                    <a href="" class="navBtn">Home</a>
-                    <a href="" class="navBtn">My More Nerdy Site</a>
+                    <a href="/" class="navBtn">Home</a>
+                    <a href="https://yourfurrydeveloper.github.io/projects" class="navBtn">My More Nerdy Site</a>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                         <p class="genericParagraph">The site has just opened, but is still under construction!<br>Feel free to explore, but just note that some parts MAY still be being worked on. :3</p>
                     </div>
 
-                    <div class="pagerow">
+                    <!--<div class="pagerow">
                         <p class="rowHeader">My Recent Videos</p>
                         <div class="rowScrollContainer">
                             <div class="postContainer">
@@ -48,23 +48,29 @@
                                 </div>
                             </div>
                         </div>
+                    </div>-->
+
+                    <div class="pagerow">
+                        <p class="rowHeader">RECCOMENDED HYPERLINKS</p>
                     </div>
 
                     <div class="pagerow">
                         <p class="rowHeader">From My Nerdy Site - Latest Stuff</p>
                         <div class="rowContainer">
                             <div class="postContainer" style="width: 100%; height: 100%;">
-                                <img class="postImg" src="https://i9.ytimg.com/vi/gYHeCT48eFs/sddefault.jpg?sqp=CPyH4ckG-oaymwEmCIAFEOAD8quKqQMa8AEB-AH2BoACgA-KAgwIABABGFsgSShlMA8=&rs=AOn4CLCtmWzpB-hTllI0pE0D2OYAZmTXTQ">
+                                <h3>Blog post</h3>
+                                <img class="postImg" id="latestPostImg" src="https://i9.ytimg.com/vi/gYHeCT48eFs/sddefault.jpg?sqp=CPyH4ckG-oaymwEmCIAFEOAD8quKqQMa8AEB-AH2BoACgA-KAgwIABABGFsgSShlMA8=&rs=AOn4CLCtmWzpB-hTllI0pE0D2OYAZmTXTQ">
                                 <div class="postInfoContainer">
-                                    <a href="" class="postName" style="font-size: 20px;">Blog Post</a>
-                                    <p class="otherPostInfo" style="font-size: 15px;">Post Date</p>
+                                    <a href="" id="latestPostName" class="postName" style="font-size: 20px;">Loading...</a>
+                                    <p id="latestPostDate" class="otherPostInfo" style="font-size: 15px;">Loading...</p>
                                 </div>
                             </div>
 
                             <div class="postContainer" style="width: 100%; height: 100%;">
-                                <img class="postImg" src="https://i9.ytimg.com/vi/gYHeCT48eFs/sddefault.jpg?sqp=CPyH4ckG-oaymwEmCIAFEOAD8quKqQMa8AEB-AH2BoACgA-KAgwIABABGFsgSShlMA8=&rs=AOn4CLCtmWzpB-hTllI0pE0D2OYAZmTXTQ">
+                                <h3>Project</h3>
+                                <img class="postImg" id="latestProjectImg" src="">
                                 <div class="postInfoContainer">
-                                    <a href="" class="postName" style="font-size: 20px;">Project Name</a>
+                                    <a href="" id="latestProjectName" class="postName" style="font-size: 20px;">Loading...</a>
                                 </div>
                             </div>
                         </div>
@@ -72,5 +78,86 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            loadProjects();
+            loadPosts();
+
+            function loadProjects() {
+                const xmlUrl = 'https://raw.githubusercontent.com/YourFurryDeveloper/projects/refs/heads/main/projects.xml';
+
+                fetch(xmlUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(xmlString => {
+                        const projects = parseXML(xmlString);
+                        console.log(projects);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem fetching the XML file:', error);
+                        alert('There was a problem fetching the project data: ' + error.message);
+                    });
+
+                function parseXML(xmlString) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+
+                    const projectNodes = xmlDoc.getElementsByTagName('project');
+
+                    const project = projectNodes[projectNodes.length - 1];
+                    const img = project.getElementsByTagName('img')[0].textContent;
+                    const name = project.getElementsByTagName('name')[0].textContent;
+
+                    document.getElementById("latestProjectImg").src = `https://yourfurrydeveloper.github.io/projects/${img}`;
+                    document.getElementById("latestProjectName").textContent = name;
+                    document.getElementById("latestProjectName").href = `https://yourfurrydeveloper.github.io/projects/projpage.html?p=${projectNodes.length - 1}`;
+                }
+            }
+
+            function loadPosts() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const pname = urlParams.get("p");
+
+                const xmlUrl = 'https://yourfurrydeveloper.github.io/projects/posts.xml';
+
+                fetch(xmlUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(xmlString => {
+                    parseXML(xmlString);
+                })
+                .catch(error => {
+                    console.error('There was a problem fetching the XML file:', error);
+                    alert('There was a problem fetching the post data:', error);
+                });
+
+                function parseXML(xmlString) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+
+                    const parsedposts = [];
+
+                    const projectNodes = xmlDoc.getElementsByTagName('post');
+
+                    const post = projectNodes[0];
+                    const title = post.getElementsByTagName('title')[0].textContent;
+                    const date = post.getElementsByTagName('date')[0].textContent;
+                    const img = post.getElementsByTagName('img')[0].textContent;
+
+                    document.getElementById("latestPostImg").src = img;
+                    document.getElementById("latestPostName").textContent = title;
+                    document.getElementById("latestPostName").href = `https://yourfurrydeveloper.github.io/projects/post.html?p=${title}`;
+                    document.getElementById("latestPostDate").textContent = date;
+                }
+            }
+        </script>
     </body>
 </html>
