@@ -159,3 +159,120 @@ body {
     color: rgb(51, 51, 51);
     margin: 0;
 }
+
+.btn {
+    display: inline-block;
+    align-items: center !important;
+    align-content: center !important;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.y2k-btn {
+    padding: 10px;
+    border: 2px solid #25567a;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.95), inset 0 2px 0px rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    background: #15487f;
+    background: -moz-linear-gradient(left, #15487f 0%, #479fd6 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, #15487f), color-stop(100%, #479fd6));
+    background: -webkit-linear-gradient(left, #15487f 0%, #479fd6 100%);
+    background: -o-linear-gradient(left, #15487f 0%, #479fd6 100%);
+    background: -ms-linear-gradient(left, #15487f 0%, #479fd6 100%);
+    background: linear-gradient(to right, #94b5d8 0%, #479fd6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15487f', endColorstr='#479fd6', GradientType=1 );
+    line-height: 1.33;
+}
+
+.y2k-btn .glare {
+  width: 150%;
+  margin-left: -22%;
+  margin-top: -14px;
+  z-index: 2;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0,0,0,1);
+  background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.49) 51%, rgba(0,0,0,0) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,1)), color-stop(51%, rgba(0,0,0,0.49)), color-stop(100%, rgba(0,0,0,0)));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.49) 51%, rgba(0,0,0,0) 100%);
+  background: -o-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.49) 51%, rgba(0,0,0,0) 100%);
+  background: -ms-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.49) 51%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.49) 51%, rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+
+#htmlOutput, #htmlInput {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+#htmlInput {
+    resize: none;
+}
+
+.langLink {
+    padding: 5px;
+}
+
+.repoContainer {
+    width: 49%;
+    height: fit-content;
+    padding-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 10px;   
+    margin-bottom: 10px; 
+    border: 1px solid black;
+    background: #272729;
+    background: linear-gradient(0deg, rgba(39, 39, 41, 1) 0%, rgba(64, 61, 61, 1) 61%);
+}
+
+.repoName {
+    color: rgb(0, 129, 194);
+    margin: 5px;
+    font-family: sans-serif;
+    width: fit-content;
+}
+
+.repoDesc {
+    color: white;
+    margin-top: -2px;
+    margin-left: 5px;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.repoLangStack {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    height: 25px;
+    margin-left: 5px;
+}
+
+.repoLangImg {
+    height: 100%;
+    margin-right: 10px;
+}

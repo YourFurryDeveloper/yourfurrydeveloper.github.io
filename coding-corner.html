@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTechDev</title>
+        <link rel="stylesheet" href="styles_home.css">
+    </head>
+
+    <body>
+        <div id="maincontent">
+            <div id="navbar">
+                <p class="siteName">Mr_McTech</p>
+                <div id="navBtns">
+                    <a href="/" class="navBtn">Home</a>
+                    <a href="https://yourfurrydeveloper.github.io/projects" class="navBtn">My More Nerdy Site</a>
+                    <a href="/coding-corner.html" class="navBtn">Coding Corner</a>
+                </div>
+            </div>
+
+            <div id="mainpage">
+                <div id="sidebar">
+                    <h2 style="margin: 0; color: rgb(29, 165, 29);">The Coding Corner!</h2>
+                    <br>
+                    <p>Welcome to the Coding Corner, where you can play around with HTML code and also see what tools I use to code!</p>
+                    <br>
+                    <br>
+                    <h2 style="margin: 0; color: rgb(29, 165, 29);">The Tools I Use</h2>
+                    <br>
+                    <p>IDE</p>
+                    <a href="" class="btn y2k-btn" style="height: 50px;">
+                        <img style="width: 100%; border-radius: 5px;" src="img/vscode.png">
+                        <div class="glare"></div>
+                    </a>
+                    <br>
+                    <br>
+                    <br>
+                    <p>Languages I know/am learning</p>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <a href="https://www.c-language.org/" class="langLink"><img style="height: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/C_Programming_Language.svg/1086px-C_Programming_Language.svg.png"></a>
+                        <a href="https://www.python.org/" class="langLink"><img style="height: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1200px-Python.svg.png"></a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" class="langLink"><img style="height: 50px;" src="https://www.ocpsoft.org/wp-content/uploads/2013/01/javascript_logo_unofficial-300x300.png"></a>
+                        <a href="https://learn.microsoft.com/en-us/dotnet/csharp/" class="langLink"><img style="height: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Logo_C_sharp.svg/1067px-Logo_C_sharp.svg.png"></a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" class="langLink"><img style="height: 50px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/500px-CSS3_logo_and_wordmark.svg.png?20160530175649"></a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" class="langLink"><img style="height: 50px;" src="https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png"></a>
+                    </div>
+                </div>
+
+                <div id="rightColumn">
+                    <div class="pagerow">
+                        <p class="rowHeader">Featured Repositories</p>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <div class="repoContainer">
+                                <a href="https://github.com/YourFurryDeveloper/McTech-Ninja-Timing-System" style="text-decoration: none; width: fit-content;"><h3 class="repoName">McTech-Ninja-Timing-System</h3></a>
+                                <p class="repoDesc">A ninja timing system I had originally made in two days, but has evolved into a full-on timing system for small gyms!</p>
+                                <div class="repoLangStack">
+                                    <img class="repoLangImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1200px-Python.svg.png">
+                                    <img class="repoLangImg" src="https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png">
+                                </div>
+                            </div>
+                            <div class="repoContainer">
+                                <a href="https://github.com/YourFurryDeveloper/3D-PNG-Renderer" style="text-decoration: none; width: fit-content;"><h3 class="repoName">3D-PNG-Renderer</h3></a>
+                                <p class="repoDesc">A really, really cool PNG/GIF/any image 3D renderer! </p>
+                                <div class="repoLangStack">
+                                    <img class="repoLangImg" src="https://www.w3.org/html/logo/downloads/HTML5_Logo_512.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pagerow" style="margin-bottom: 30px;">
+                        <p class="rowHeader">HTML Editor Playground</p>
+                        <p class="genericParagraph">A place where you can write your OWN HTML code and have it displayed in real time!</p>
+                        <div class="rowContainer" style="height: 500px;">
+                            <div style="width: 100%; height: 100%; margin-right: 10px;">
+                                <p>HTML input</p>
+                                <textarea id="htmlInput"></textarea>
+                            </div>
+
+                            <div style="width: 100%; height: 100%;">
+                                <p>HTML output</p>
+                                <iframe id="htmlOutput"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("htmlInput").addEventListener("input", function() {
+                const outputFrame = document.getElementById("htmlOutput").contentWindow.document;
+                //outputFrame.document.innerHTML = document.getElementById("htmlInput").value;
+                outputFrame.open();
+                outputFrame.write(document.getElementById("htmlInput").value);
+                outputFrame.close();
+            })
+        </script>
+    </body>
+</html>
