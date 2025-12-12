@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTechDev</title>
+        <link rel="stylesheet" href="styles_home.css">
+    </head>
+
+    <body>
+        <div id="maincontent">
+            <div id="navbar">
+                <p class="siteName">Mr_McTech</p>
+                <div id="navBtns">
+                    <a href="/" class="navBtn">Home</a>
+                    <a href="https://yourfurrydeveloper.github.io/projects" class="navBtn">My More Nerdy Site</a>
+                    <a href="/coding-corner.html" class="navBtn">Coding Corner</a>
+                    <a href="/music.html" class="navBtn">My Music</a>
+                </div>
+            </div>
+
+            <div id="mainpage">
+                <div id="sidebar">
+                    <h2 style="margin: 0; color: rgb(29, 165, 29);">My Music!</h2>
+                    <br>
+                    <p>I make music too, you know :3<br>AAANYWAAY, this is where my cool tracks reside!</p>
+                </div>
+
+                <div id="rightColumn">
+                    <div class="pagerow" style="margin-bottom: 100px;">
+                        <p class="rowHeader">Featured Song!</p>
+                        <div class="postContainer" style="width: 100%; flex-direction: row;">
+                            <img class="postImg songImg" src="https://i9.ytimg.com/vi_webp/RognurEEJpg/mqdefault.webp?v=692764ef&sqp=CNTA8ckG&rs=AOn4CLDLP1WvaVdnURFtmp8fY0csRY2TRg">
+                            <div class="postInfoContainer" style="margin-left: 15px;">
+                                <a href="https://www.youtube.com/watch?v=RognurEEJpg" class="postName" style="font-size: 20px;">Cushions</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pagerow">
+                        <p class="rowHeader">All My Songs</p>
+                        <div class="rowContainer" id="songContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            loadSongs();
+
+            function loadSongs() {
+                const xmlUrl = '/songs.xml';
+
+                fetch(xmlUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(xmlString => {
+                        const projects = parseXML(xmlString);
+                        console.log(projects);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem fetching the XML file:', error);
+                        alert('There was a problem fetching the project data: ' + error.message);
+                    });
+
+                function parseXML(xmlString) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+
+                    const projectNodes = xmlDoc.getElementsByTagName('song');
+
+                    for (let i = 0; i < projectNodes.length; i++) {
+                        const song = projectNodes[i];
+                        const title = song.getElementsByTagName('title')[0].textContent;
+                        const img = song.getElementsByTagName('img')[0].textContent;
+                        const duration = song.getElementsByTagName('duration')[0].textContent;
+                        const link = song.getElementsByTagName('link')[0].textContent;
+
+                        let newSongDiv = document.createElement("div");
+                        newSongDiv.className = "postContainer";
+                        newSongDiv.style.height = "fit-content";
+                        newSongDiv.style.marginBottom = "15px";
+                        
+                        let newSongImg = document.createElement("img");
+                        newSongImg.className = "postImg songImg";
+                        newSongImg.src = img;
+
+                        newSongDiv.appendChild(newSongImg);
+
+                        let newInfoContainer = document.createElement("div");
+                        newInfoContainer.className = "postInfoContainer";
+
+                        let songLink = document.createElement("a");
+                        songLink.className = "postName";
+                        songLink.href = link;
+                        songLink.textContent = title;
+
+                        let songDuration = document.createElement("p");
+                        songDuration.className = "otherPostInfo";
+                        songDuration.textContent = duration;
+
+                        newInfoContainer.appendChild(songLink);
+                        newInfoContainer.appendChild(songDuration);
+
+                        newSongDiv.appendChild(newInfoContainer);
+                        document.getElementById("songContainer").appendChild(newSongDiv);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

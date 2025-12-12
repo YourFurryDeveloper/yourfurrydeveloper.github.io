@@ -283,3 +283,15 @@ body {
     height: 100%;
     margin-right: 10px;
 }
+
+#songContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.songImg {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
