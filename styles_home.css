@@ -20,11 +20,23 @@ body {
     padding-bottom: 10px ;
 }
 
-.siteName {
+.siteBanner {
     padding: 5px;
-    background-color: brown;
+    display: flex;
+    align-items: center;
+    /*background-color: brown;*/
+    background: #6e0d0d;
+    background: linear-gradient(0deg, rgba(110, 13, 13, 1) 0%, rgba(186, 76, 76, 1) 100%);
+    border-radius: 5px;
     color: white;
     font-size: 20px;
+    height: 100px !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.siteName {
+    margin-left: 20px;
 }
 
 #navBtns {
