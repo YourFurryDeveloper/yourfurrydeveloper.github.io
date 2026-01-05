@@ -1,5 +1,12 @@
 <songs>
     <song>
+        <title>HALF DAY!</title>
+        <duration>1:53</duration>
+        <img>img/yt/halfday.jpg</img>
+        <link>https://www.youtube.com/watch?v=grwBxaYbUoM</link>
+    </song>
+
+    <song>
         <title>Cushions</title>
         <duration>2:40</duration>
         <img>img/yt/cushions.webp</img>
