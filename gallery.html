@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>McTechDev</title>
+        <link rel="stylesheet" href="styles_home.css">
+        <link rel="canonical" href="https://yourfurrydeveloper.github.io/">
+    </head>
+
+    <body>
+        <div id="maincontent">
+            <div id="navbar">
+                <div class="siteBanner"><img src="img/mypfp.jpg" style="height: 90%;"><h3 class="siteName">Mr_McTech</h3></div>
+                <div id="navBtns">
+                    <a href="/" class="navBtn">Home</a>
+                    <a href="https://yourfurrydeveloper.github.io/projects" class="navBtn">My More Nerdy Site</a>
+                    <a href="/coding-corner.html" class="navBtn">Coding Corner</a>
+                    <a href="/gallery.html" class="navBtn">My Gallery</a>
+                    <a href="/music.html" class="navBtn">My Music</a>
+                </div>
+            </div>
+
+            <div id="mainpage">
+                <div id="sidebar">
+                    <h2 style="margin: 0; color: rgb(29, 165, 29);">My Gallery</h2>
+                    <br>
+                    <p>Here, I put some pictures that I take and renders that I make so you all can see them!</p>
+                    <br>
+                </div>
+
+                <div id="rightColumn">
+                    <div id="gallery">
+                        <!--<div class="galleryImageDisplay">
+                            <img class="galleryImage" src="https://placehold.co/1920x1080">
+                            <div class="galleryImageDetails">
+                                <p class="galleryImageName">Image Name</p>
+                                <p class="galleryImageSettingsInfo">ISO 800 | Shutter Speed 1/100 | </p>
+                                <p class="galleryImageType">Photo</p>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/exif.js"></script>
+        <script>
+            loadGallery();
+
+            function getImageSettings(img, callback) {
+                if (img.complete) {
+                    EXIF.getData(img, function() {
+                                const aperture = EXIF.getTag(this, "FNumber");
+                                const iso = EXIF.getTag(this, "ISOSpeedRatings");
+                                const cameraModel = EXIF.getTag(this, "Model");
+                                const shutterSpeed = EXIF.getTag(this, "ExposureTime");
+
+                                const imgSettings =
+                                    `Model: ${cameraModel} | ISO: ${iso} | Aperture: f/${aperture} | Shutter Speed: ${shutterSpeed.numerator}/${shutterSpeed.denominator}`;
+
+                                callback(imgSettings);
+                            });
+                } else {
+                    img.onload = () => 
+                    EXIF.getData(img, function() {
+                                const aperture = EXIF.getTag(this, "FNumber");
+                                const iso = EXIF.getTag(this, "ISOSpeedRatings");
+                                const cameraModel = EXIF.getTag(this, "Model");
+                                const shutterSpeed = EXIF.getTag(this, "ExposureTime");
+
+                                const imgSettings =
+                                    `Model: ${cameraModel} | ISO: ${iso} | Aperture: f/${aperture} | Shutter Speed: ${shutterSpeed.numerator}/${shutterSpeed.denominator}`;
+
+                                callback(imgSettings);
+                            });
+                        };
+            }
+
+            function loadGallery() {
+                const xmlUrl = '/gallery.xml';
+
+                fetch(xmlUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(xmlString => {
+                        const projects = parseXML(xmlString);
+                        console.log(projects);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem fetching the XML file:', error);
+                        alert('There was a problem fetching the gallery data: ' + error.message);
+                    });
+
+                function parseXML(xmlString) {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+
+                    const projectNodes = xmlDoc.getElementsByTagName('img');
+
+                    for (let i = 0; i < projectNodes.length; i++) {
+                        const galleryImg = projectNodes[i];
+                        const name = galleryImg.getElementsByTagName('name')[0].textContent;
+                        const img = galleryImg.getElementsByTagName('url')[0].textContent;
+                        const imgType = galleryImg.getElementsByTagName('type')[0].textContent;
+
+                        let newgalleryImgDiv = document.createElement("div");
+                        newgalleryImgDiv.className = "galleryImageDisplay";
+                        
+                        let newgalleryImg = document.createElement("img");
+                        newgalleryImg.className = "galleryImage";
+                        newgalleryImg.src = img;
+
+                        newgalleryImgDiv.appendChild(newgalleryImg);
+
+                        let newInfoContainer = document.createElement("div");
+                        newInfoContainer.className = "galleryImageDetails";
+
+                        let galleryImgName = document.createElement("a");
+                        galleryImgName.className = "galleryImageName";
+                        galleryImgName.textContent = name;
+
+                        let galleryImgSettingsInfo = document.createElement("p");
+                        
+                        if (imgType === "Photo") {
+                            getImageSettings(newgalleryImg, function(settingsInfo) {
+                                console.log(settingsInfo);
+
+                                galleryImgSettingsInfo.className = "galleryImageSettingsInfo";
+                                galleryImgSettingsInfo.textContent = settingsInfo;
+                            });
+                        }
+
+                        let galleryImgType = document.createElement("p");
+                        galleryImgType.className = "galleryImageType";
+                        galleryImgType.textContent = imgType;
+
+                        newInfoContainer.appendChild(galleryImgName);
+                        if (imgType === "Photo") { newInfoContainer.appendChild(galleryImgSettingsInfo); }
+                        newInfoContainer.appendChild(galleryImgType);
+
+                        newgalleryImgDiv.appendChild(newInfoContainer);
+                        document.getElementById("gallery").appendChild(newgalleryImgDiv);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
