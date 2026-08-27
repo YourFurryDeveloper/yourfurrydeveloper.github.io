@@ -1,5 +1,12 @@
 <songs>
     <song>
+        <title>Ethereal</title>
+        <duration>2:24</duration>
+        <img>img/yt/ethereal.webp</img>
+        <link>https://www.youtube.com/watch?v=ZCd2KyE7sbY</link>
+    </song>
+
+    <song>
         <title>HALF DAY!</title>
         <duration>1:53</duration>
         <img>img/yt/halfday.jpg</img>
